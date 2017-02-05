@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			p:nth-child(3){
+				background: red;
+			}
+			p:nth-of-type(2){
+				background: yellow;
+			}
+			
+			li::before{
+				background: #000000;
+				color: #FF0000;
+				content: "*";
+			}
+			li::after{
+				content: "*";
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li>one</li>
+				<li>two</li>
+				<li>three</li>
+			</ul>
+			<div>abc</div>
+			<p>para</p>
+			<div>def</div>
+			<p>para</p>
+			<b>ghi</b>
+		</div>
+		
+	</body>
+</html>
