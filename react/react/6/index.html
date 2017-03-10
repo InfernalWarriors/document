@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../build/react.min.js"></script>
+    	<script src="../build/react-dom.min.js"></script>
+    	<script src="../build/browser.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="example"></div>
+	
+		<script type="text/babel">
+		
+		
+      	var AnswerRadioInput = React.createClass({
+      		
+      		propTypes:{
+      			id:React.PropTypes.string,
+      			name:React.PropTypes.string.isRequired,
+      			label:React.PropTypes.string.isRequired,
+      			value:React.PropTypes.string.isRequired,
+      			checked:React.PropTypes.bool
+      		},
+      		
+      		getDefaultProps:function(){
+      			return {
+      				id:null,
+      				checked:false
+      			}
+      			
+      		},
+      		
+      		getInitialState:function(){
+      			var id=this.props.id?this.props.id:uniqueId('radio-');
+      			return {
+      				checked:!!this.props.checked,
+      				id:id,
+      				name:id
+      			}
+      		},
+      		render:function(){
+      			return(
+      				<div className="radio">
+      					<label htmlFor={this.props.id}>
+      						<input type="radio" 
+      							name={this.props.name}
+      							id={this.props.id}
+      							value={this.props.value}
+      							checked={this.state.checked}
+      							/>
+      							{this.props.label}
+      					</label>
+      					
+      				</div>
+      			);
+      		}
+      		
+      	});
+      	
+      	
+      	var AnswerMultipleChoiceQuestion=React.createClass({
+      		propTypes:{
+      			value:React.PropTypes.string,
+      			choices:React.PropTypes.array.isRequired,
+      			onCompleted:React.PropTypes.func.isRequired
+      		},
+      		getInitialState:function(){
+      			return{
+      				
+      				value:this.props.value
+      			};
+      		},
+      		
+      		render:function(){
+      			return (
+      				<div className="form-group">
+      					<label className="survey-item-label" htmlFor={this.state.id}>
+      						{this.props.label}
+      					</label>
+      					<div className="survey-item-content">
+      						<AnswerRadioInput name="test1" id="1" value="1" label="测试1" />
+      						<AnswerRadioInput name="test2" id="2" value="2" label="测试2" />
+      						<AnswerRadioInput name="test3" id="3" value="3" label="测试3" />
+      						<AnswerRadioInput name="test4" id="4" value="4" label="测试4" />
+      					</div>
+      					
+      				</div>
+      			);
+      		}
+      		
+      	});
+
+      	ReactDOM.render(
+        	<AnswerMultipleChoiceQuestion name="sudi" id="1" value="3" label="测试" />,
+        	document.getElementById('example')
+      	);
+    </script>
+	</body>
+</html>
