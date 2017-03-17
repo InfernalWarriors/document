@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="../build/react.min.js"></script>
+    	<script src="../build/react-dom.min.js"></script>
+    	<script src="../build/browser.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="example"></div>
+	
+		<script type="text/babel">
+		
+		
+      	var IntervalMixin={
+			setInterval:function(callback,interval){
+				var token=setInterval(callback,interval);
+				this.__intervals.push(token);
+				return token;
+			},
+			componentDidMount:function(){
+				this.__intervals=[];
+			},
+			componentWillUnmount:function(){
+				this.__intervals.map(clearInterval);
+			}
+		};
+		var Since2014=React.createClass({
+			mixins:[IntervalMixin],
+			componentDidMount:function(){
+				this.setInterval(this.forceUpdate.bind(this),1000);
+			},
+			render:function(){
+				var from=Number(new Date(2014,0,1));
+				var to=Date.now();
+				return(
+					<div>{Math.round((to-from)/1000)}</div>
+				);
+			}
+		});
+
+
+		
+      	ReactDOM.render(
+        	<Since2014 />,
+        	document.getElementById('example')
+      	);
+    </script>
+	</body>
+</html>

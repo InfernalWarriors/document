@@ -23,7 +23,13 @@
       			value:React.PropTypes.string.isRequired,
       			checked:React.PropTypes.bool
       		},
-      		
+      		handleChange:function(e){
+      			var checked=e.target.checked;
+      			this.setState({checked:checked});
+      			
+      				alert(this.props.value);
+      			
+      		},
       		getDefaultProps:function(){
       			return {
       				id:null,
@@ -48,7 +54,7 @@
       							name={this.props.name}
       							id={this.props.id}
       							value={this.props.value}
-      							checked={this.state.checked}
+      							onChange={this.handleChange}
       							/>
       							{this.props.label}
       					</label>
@@ -61,11 +67,25 @@
       	
       	
       	var AnswerMultipleChoiceQuestion=React.createClass({
+      		handleChange:function(value){
+      			alert(value);
+      			return true;
+      		},
+      		renderChioces:function(){
+      			
+      			var d=this.props.choices.map(function(choice,i){
+      				alert(i);
+      				return <AnswerRadioInput id="tes" name="test" label={choice} value={choice} />;
+      				
+      			}.bind(this));
+      			return d;
+      		},
       		propTypes:{
       			value:React.PropTypes.string,
       			choices:React.PropTypes.array.isRequired,
       			onCompleted:React.PropTypes.func.isRequired
       		},
+      		
       		getInitialState:function(){
       			return{
       				
@@ -80,10 +100,8 @@
       						{this.props.label}
       					</label>
       					<div className="survey-item-content">
-      						<AnswerRadioInput name="test1" id="1" value="1" label="测试1" />
-      						<AnswerRadioInput name="test2" id="2" value="2" label="测试2" />
-      						<AnswerRadioInput name="test3" id="3" value="3" label="测试3" />
-      						<AnswerRadioInput name="test4" id="4" value="4" label="测试4" />
+      						
+      						{this.renderChioces()}
       					</div>
       					
       				</div>
@@ -91,9 +109,12 @@
       		}
       		
       	});
-
+		var choices=["测试1","测试2","测试3","测试4"];
       	ReactDOM.render(
-        	<AnswerMultipleChoiceQuestion name="sudi" id="1" value="3" label="测试" />,
+      		
+      		
+      		
+        	<AnswerMultipleChoiceQuestion name="sudi" id="1" choices={choices} value="3" label="测试" />,
         	document.getElementById('example')
       	);
     </script>
